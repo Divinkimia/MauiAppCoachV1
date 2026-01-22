@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MauiAppCoachV1/MauiAppCoachV1.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="TestProjectCoach1/TestProjectCoach1.csproj" Id="7f12a627-8cda-4ae8-9ff1-cfada4ae6e36" />
+</Solution>
