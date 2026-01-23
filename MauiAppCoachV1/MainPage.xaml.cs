@@ -1,5 +1,6 @@
-﻿using MauiAppCoachV1.Modele;
+﻿using MauiAppCoachV1.Core.Modele;
 using System.Threading.Tasks;
+
 
 namespace MauiAppCoachV1
 {
@@ -12,7 +13,7 @@ namespace MauiAppCoachV1
             InitializeComponent();
         }
 
-        private async Task OnCounterClicked(object? sender, EventArgs e)
+        private async void OnCalculerClicked(object sender, EventArgs e)
         {
             try
             {
@@ -26,14 +27,26 @@ namespace MauiAppCoachV1
 
                 lblResultat.Text = $"IMG : {profil.Img:F1}\n{profil.Message}";
                 lblResultat.IsVisible = true;
+
+                if (profil.Message.Contains("Surpoids"))
+                    imgResultat.Source = "surpoids.png";
+                else if (profil.Message.Contains("Trop maigre"))
+                    imgResultat.Source = "maigre.png";
+                else if (profil.Message.Contains("Parfait"))
+                    imgResultat.Source = "parfait.png";
+
+                imgResultat.IsVisible = true;
             }
             catch
             {
-                await DisplayAlertAsync(
-                 "Erreur",
-                 "Veuillez saisir des valeurs valides",
-                 "OK");
+                await DisplayAlert("Erreur", "Veuillez saisir des valeurs valides", "OK");
             }
+        }
+
+
+        private void btnReinitialiser_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

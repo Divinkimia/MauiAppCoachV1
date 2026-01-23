@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MauiAppCoachV1.Modele
+namespace MauiAppCoachV1.Core.Modele
 {
     public class Profil
     {
@@ -37,7 +37,7 @@ namespace MauiAppCoachV1.Modele
             img = (1.2 * poids / (tailleEnMetres * tailleEnMetres)) + (0.23 * age) - (10.83 * sexe) - 5.4;
         }
 
-      
+        //  fournir le message en fonction de l'img et du sexe
         private void ResultatIMG()
         {
             if (sexe == 1) // Homme
@@ -58,6 +58,22 @@ namespace MauiAppCoachV1.Modele
                 else // img > 30
                     message = "Surpoids.";
             }
+        }
+
+
+        // FONCTION qui affiche le resultat de l'image en fonction du message
+        public string GetImageResultat()
+        {
+            if (Message.Contains("Surpoids"))
+                return "surpoids.png";
+
+            if (Message.Contains("Trop maigre"))
+                return "maigre.png";
+
+            if (Message.Contains("Parfait"))
+                return "parfait.png";
+
+            return "default.png";
         }
 
         //  La propriétés en lecture seule

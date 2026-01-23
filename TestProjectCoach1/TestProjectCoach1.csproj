@@ -1,11 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0-android</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AndroidJavaSource Remove="Tests\**" />
+    <AndroidLibrary Remove="Tests\**" />
+    <AndroidNativeLibrary Remove="Tests\**" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <JavaSourceJar Remove="Tests\**" />
+    <None Remove="Tests\**" />
+    <ProguardConfiguration Remove="Tests\**" />
+    <TransformFile Remove="Tests\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MSTest" Version="4.0.1" />
@@ -16,7 +28,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="Tests\ProfilTests.cs" />
+	  <ProjectReference Include="..\MauiAppCoachV1.Core\MauiAppCoachV1.Core.csproj" />
 	</ItemGroup>
 
 

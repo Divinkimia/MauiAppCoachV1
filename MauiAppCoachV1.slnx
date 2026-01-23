@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="MauiAppCoachV1.Core/MauiAppCoachV1.Core.csproj" Id="679ae9c8-c6cc-46b6-9e9a-e78d6f0aab5e" />
   <Project Path="MauiAppCoachV1/MauiAppCoachV1.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
