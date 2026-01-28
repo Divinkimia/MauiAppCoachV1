@@ -14,15 +14,6 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a submarine number ten" />
 
-            <!-- Image pour afficher le smiley selon le résultat -->
-            <Image
-                x:Name="imgResultat"
-                HeightRequest="100"
-                WidthRequest="100"
-                HorizontalOptions="Center"
-                Aspect="AspectFit"
-                Margin="0,10"
-                IsVisible="False" />
 
             <!-- zone d'etre de mes valeur Poids , Taille, et age-->
             <Entry
@@ -81,7 +72,15 @@
                 HorizontalOptions="Fill"
                 Margin="0,20"
                 FontSize="18" />
-          
+            <!-- Image pour afficher le smiley selon le résultat -->
+            <Image
+                x:Name="imgResultat"
+                HeightRequest="100"
+                WidthRequest="100"
+                HorizontalOptions="Center"
+                Aspect="AspectFit"
+                Margin="0,10"
+                IsVisible="False" />            
 
             <Label
                 x:Name="lblResultat"

@@ -6,7 +6,7 @@ namespace MauiAppCoachV1
 {
     public partial class MainPage : ContentPage
     {
-        
+
 
         public MainPage()
         {
@@ -28,13 +28,7 @@ namespace MauiAppCoachV1
                 lblResultat.Text = $"IMG : {profil.Img:F1}\n{profil.Message}";
                 lblResultat.IsVisible = true;
 
-                if (profil.Message.Contains("Surpoids"))
-                    imgResultat.Source = "surpoids.png";
-                else if (profil.Message.Contains("Trop maigre"))
-                    imgResultat.Source = "maigre.png";
-                else if (profil.Message.Contains("Parfait"))
-                    imgResultat.Source = "parfait.png";
-
+                imgResultat.Source = profil.GetImageResultat();
                 imgResultat.IsVisible = true;
             }
             catch

@@ -7,14 +7,14 @@ namespace MauiAppCoachV1.Core.Modele
     public class Profil
     {
         private int sexe;      // 0 pour une Femme et 1 pour un homme
-        private double poids;  
-        private double taille; 
-        private int age;       
+        private double poids;
+        private double taille;
+        private int age;
         private double img;    // Indice de Masse Grasse
-        private string message =string.Empty ; // Pour annoncer le résultat avec un commentaire
+        private string message = string.Empty; // Pour annoncer le résultat avec un commentaire
 
 
-       
+
         public Profil(int sexe, double poids, double taille, int age)
         {
             this.sexe = sexe;
@@ -27,7 +27,7 @@ namespace MauiAppCoachV1.Core.Modele
             ResultatIMG();
         }
 
-       
+
         private void CalculIMG()
         {
             // Convertir la taille de cm en mètres
@@ -65,15 +65,15 @@ namespace MauiAppCoachV1.Core.Modele
         public string GetImageResultat()
         {
             if (Message.Contains("Surpoids"))
-                return "surpoids.png";
+                return "smiley_surpoids.png";
 
             if (Message.Contains("Trop maigre"))
-                return "maigre.png";
+                return "smiley_tropmaigre.png";
 
             if (Message.Contains("Parfait"))
-                return "parfait.png";
+                return "smiley_parfait.png";
 
-            return "default.png";
+            return "dotnet_bot.png";
         }
 
         //  La propriétés en lecture seule
@@ -85,6 +85,3 @@ namespace MauiAppCoachV1.Core.Modele
         public string Message => message;
     }
 }
-
-
-
