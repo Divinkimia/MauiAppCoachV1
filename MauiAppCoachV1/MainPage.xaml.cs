@@ -1,4 +1,4 @@
-﻿using MauiAppCoachV1.Core.Modele;
+using MauiAppCoachV1.Core.Modele;
 using System.Threading.Tasks;
 
 
@@ -24,12 +24,7 @@ namespace MauiAppCoachV1
                 int sexe = rbHomme.IsChecked ? 1 : 0;
 
                 Profil profil = new Profil(sexe, poids, taille, age);
-
-                lblResultat.Text = $"IMG : {profil.Img:F1}\n{profil.Message}";
-                lblResultat.IsVisible = true;
-
-                imgResultat.Source = profil.GetImageResultat();
-                imgResultat.IsVisible = true;
+                AfficherResultat(profil);
             }
             catch
             {
@@ -37,10 +32,33 @@ namespace MauiAppCoachV1
             }
         }
 
+       
+        /// Affiche ou masque le résultat IMG (label + image) selon le profil fourni.
+        /// <param name="profil">Profil avec le résultat à afficher, ou null pour masquer.</param>
+        private void AfficherResultat(Profil? profil)
+        {
+            if (profil is null)
+            {
+                lblResultat.Text = string.Empty;
+                lblResultat.IsVisible = false;
+                imgResultat.Source = null;
+                imgResultat.IsVisible = false;
+                return;
+            }
+
+            lblResultat.Text = $"IMG : {profil.Img:F1}\n{profil.Message}";
+            lblResultat.IsVisible = true;
+            imgResultat.Source = profil.GetImageResultat();
+            imgResultat.IsVisible = true;
+        }
 
         private void btnReinitialiser_Clicked(object sender, EventArgs e)
         {
-
+            entPoids.Text = string.Empty;
+            entTaille.Text = string.Empty;
+            entAge.Text = string.Empty;
+            rbHomme.IsChecked = true;
+            AfficherResultat(null);
         }
     }
 }

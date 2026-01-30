@@ -6,11 +6,11 @@ namespace MauiAppCoachV1.Core.Modele
 {
     public class Profil
     {
-        private int sexe;      // 0 pour une Femme et 1 pour un homme
+        private int sexe;                        // 0 pour une Femme et 1 pour un homme
         private double poids;
         private double taille;
         private int age;
-        private double img;    // Indice de Masse Grasse
+        private double img;                     // Indice de Masse Grasse
         private string message = string.Empty; // Pour annoncer le résultat avec un commentaire
 
 
