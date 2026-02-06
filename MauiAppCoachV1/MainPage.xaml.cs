@@ -1,34 +1,98 @@
 using MauiAppCoachV1.Core.Modele;
-using System.Threading.Tasks;
+using MauiAppCoachV1.Core.Outils;
 
 
 namespace MauiAppCoachV1
 {
     public partial class MainPage : ContentPage
     {
+        private Profil unProfil = null;
+        private readonly SQLiteDb SQLiteDbCoach = null;
 
+        private const string NomFichierProfil = "saveprofil"; // fichier pour la serialisation
 
         public MainPage()
         {
             InitializeComponent();
+            SQLiteDbCoach = new SQLiteDb();
+            SqliteSelect();
         }
+
+        private async void SqliteSelect()
+        {
+            unProfil = await SQLiteDbCoach.GetLastItemQueryAsync();
+            if (unProfil != null)
+            {
+                entPoids.Text = unProfil.Poids.ToString();
+                entTaille.Text = unProfil.Taille.ToString();
+                entAge.Text = unProfil.Age.ToString();
+
+                if (unProfil.Sexe == 1)
+                {
+                    rbHomme.IsChecked = true;
+                }
+                else if (unProfil.Sexe == 0)
+                {
+                    rbFemme.IsChecked = true;
+                }
+
+                // affichage du résultat 
+                AfficherResultat(unProfil);
+            }
+
+
+        }
+        /*
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ChargerProfilSauvegarde();
+        }
+      
+
+        
+        /// Charge le profil sauvegardé depuis le fichier et restaure les champs du formulaire.
+        private void ChargerProfilSauvegarde()
+        {
+            Profil? profil = Serializer.deserialize(NomFichierProfil);
+            if (profil != null)
+            {
+                entPoids.Text = profil.Poids.ToString();
+                entTaille.Text = profil.Taille.ToString();
+                entAge.Text = profil.Age.ToString();
+                rbHomme.IsChecked = profil.Sexe == 1;
+                rbFemme.IsChecked = profil.Sexe == 0;
+                AfficherResultat(profil);
+            }
+        }
+          */
+
 
         private async void OnCalculerClicked(object sender, EventArgs e)
         {
             try
-            {
-                double poids = double.Parse(entPoids.Text);
-                double taille = double.Parse(entTaille.Text);
-                int age = int.Parse(entAge.Text);
+            {  
+                var poids = double.Parse(entPoids.Text);
+                var taille = double.Parse(entTaille.Text);
+                var age = int.Parse(entAge.Text);
+                var sexe = 0;
+                if (rbHomme.IsChecked)
+                {
+                    sexe = 1;
+                }
+                else if (rbFemme.IsChecked)
+                {
+                    sexe = 0;
+                }
 
-                int sexe = rbHomme.IsChecked ? 1 : 0;
+                DateTimeOffset dateMesure = DateTimeOffset.Now;
+                Profil unProfil = new Profil(null, dateMesure, sexe, poids, taille, age);
 
-                Profil profil = new Profil(sexe, poids, taille, age);
-                AfficherResultat(profil);
+                AfficherResultat(unProfil);
             }
             catch
             {
-                await DisplayAlert("Erreur", "Veuillez saisir des valeurs valides", "OK");
+                await DisplayAlertAsync("Erreur", "Veuillez saisir des valeurs valides", "OK");
             }
         }
 
@@ -52,13 +116,16 @@ namespace MauiAppCoachV1
             imgResultat.IsVisible = true;
         }
 
-        private void btnReinitialiser_Clicked(object sender, EventArgs e)
+        private void BtnReinitialiser_Clicked(object sender, EventArgs e)
         {
             entPoids.Text = string.Empty;
             entTaille.Text = string.Empty;
             entAge.Text = string.Empty;
             rbHomme.IsChecked = true;
             AfficherResultat(null);
+
+            // Supprimer le fichier profil sauvegardé (supp sans avoir à effacer le cahe action précédant 
+            //Serializer.SupprimerFichier(NomFichierProfil);
         }
     }
 }

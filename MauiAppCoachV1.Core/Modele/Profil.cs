@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace MauiAppCoachV1.Core.Modele
 {
+    [Serializable]
     public class Profil
     {
+        private readonly Nullable<int> id;         // Pour l'ajout de id pour base de données SQLite
+        private DateTimeOffset datemesure;        // ajout de la date de la mesure
         private int sexe;                        // 0 pour une Femme et 1 pour un homme
         private double poids;
         private double taille;
@@ -14,24 +18,58 @@ namespace MauiAppCoachV1.Core.Modele
         private string message = string.Empty; // Pour annoncer le résultat avec un commentaire
 
 
-
-        public Profil(int sexe, double poids, double taille, int age)
+        public Profil(Nullable<int> unId, DateTimeOffset uneDate, int unSexe, double unPoids, double uneTaille, int unAge)
         {
-            this.sexe = sexe;
-            this.poids = poids;
-            this.taille = taille;
-            this.age = age;
-
+            id = unId;
+            datemesure = uneDate;
+            sexe = unSexe;
+            poids = unPoids;
+            taille = uneTaille;
+            age = unAge;
             // Calcul automatique de l'IMG et du message lors de l'instanciation
             CalculIMG();
             ResultatIMG();
+
         }
 
+
+        [PrimaryKey, AutoIncrement] //Clé primaire et auto-incrémentée pour SQLite
+        public int Id { get; set; }
+
+        public DateTimeOffset DateMesure
+        {
+            get { return datemesure; }
+            set { datemesure = value; }
+        }
+
+        public Profil()
+        {
+            datemesure = new DateTimeOffset();
+            sexe = 0;
+            poids = 0;
+            taille = 0;
+            age = 0;
+            img = 0;
+            message = "";
+        }
+
+        
+
+
+       
 
         private void CalculIMG()
         {
             // Convertir la taille de cm en mètres
             double tailleEnMetres = taille / 100.0;
+
+            // Protection contre la division par zéro ou taille invalide
+            if (tailleEnMetres <= 0)
+            {
+                img = 0;
+                message = "Taille invalide.";
+                return;
+            }
 
             // Calcule de l'img
             img = (1.2 * poids / (tailleEnMetres * tailleEnMetres)) + (0.23 * age) - (10.83 * sexe) - 5.4;
@@ -76,12 +114,40 @@ namespace MauiAppCoachV1.Core.Modele
             return "dotnet_bot.png";
         }
 
-        //  La propriétés en lecture seule
-        public int Sexe => sexe;
-        public double Poids => poids;
-        public double Taille => taille;
-        public int Age => age;
-        public double Img => img;
-        public string Message => message;
+        //  La propriétés en lecture seule ( mes getters )
+
+       
+        public int Sexe
+        {
+            get { return sexe; }
+            set { sexe = value;}
+        }
+        public double Poids
+        {
+            get { return poids; }
+            set { poids = value;}
+        }
+
+        public double Taille
+        {
+            get { return taille; }
+            set { taille = value;}
+        }
+        public int Age
+        {
+            get { return age; }
+            set { age = value;}
+        }
+        public double Img
+        {
+            get { return img; }
+            set { img = value; }
+        }
+        public string Message
+        {
+            get { return message; }
+            set { message = value; }
+        }
     }
+
 }

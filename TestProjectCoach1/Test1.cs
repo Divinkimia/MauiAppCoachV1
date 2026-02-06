@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MauiAppCoachV1.Core.Modele;
+using System;
 
 namespace TestProjectCoach1
 {
@@ -11,17 +12,19 @@ namespace TestProjectCoach1
         {
             // Arrange
             Profil profil = new Profil(
-                sexe: 1,     // Homme
-                poids: 80,
-                taille: 180,
-                age: 30
+                unId: null,
+                uneDate: DateTimeOffset.Now,
+                unSexe: 1,     // Homme
+                unPoids: 80,
+                uneTaille: 180,
+                unAge: 30
             );
 
             // Act
             double img = profil.Img;
 
             // Assert
-            Assert.IsTrue(img > 0, "L'IMG doit être positif");
+            Assert.IsGreaterThan(img, 0, "L'IMG doit être positif");
         }
 
         [TestMethod]
@@ -29,10 +32,12 @@ namespace TestProjectCoach1
         {
             
             Profil profil = new Profil(
-                sexe: 1,     // Homme
-                poids: 75,
-                taille: 180,
-                age: 25
+                unId: null,
+                uneDate: DateTimeOffset.Now,
+                unSexe: 1,     // Homme
+                unPoids: 75,
+                uneTaille: 180,
+                unAge: 25
             );
 
             
@@ -47,10 +52,12 @@ namespace TestProjectCoach1
         {
            
             Profil profil = new Profil(
-                sexe: 0,     // Femme
-                poids: 85,
-                taille: 165,
-                age: 35
+                unId: null,
+                uneDate: DateTimeOffset.Now,
+                unSexe: 0,     // Femme
+                unPoids: 85,
+                uneTaille: 165,
+                unAge: 35
             );
 
            
@@ -64,7 +71,7 @@ namespace TestProjectCoach1
         public void Constructeur_AssigneCorrectementLesValeurs()
         {
             
-            Profil profil = new Profil(1, 70, 175, 28);
+            Profil profil = new Profil(null, DateTimeOffset.Now, 1, 70, 175, 28);
 
             
             Assert.AreEqual(1, profil.Sexe);
